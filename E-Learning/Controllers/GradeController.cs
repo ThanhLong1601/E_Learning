@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,56 +16,56 @@ namespace E_Learning.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ClassController : ControllerBase
+    public class GradeController : ControllerBase
     {
-        private IEClassRespository _ClassRespo;
+        private IEGradeRespository _GraRespo;
         private IMapper admap;
-
-        public ClassController(IEClassRespository classrespo, IMapper mapper)
+        public GradeController(IEGradeRespository grarespo, IMapper mapper)
         {
             admap = mapper;
-            _ClassRespo = classrespo;
+            _GraRespo = grarespo;
         }
+
 
         //GET
         [HttpGet]
-        public async Task<ActionResult<List<ClassDTO>>> getClassALL()
+        public async Task<ActionResult<List<GradeDTO>>> getGrade()
         {
-            var model = _ClassRespo.GetAll();
+            var model = _GraRespo.GetAll();
             if (model == null)
             {
-                return new List<ClassDTO>();
+                return new List<GradeDTO>();
             }
             return model.ToList();
         }
 
         //POST
         [HttpPost]
-        public ActionResult<bool> AddClass(ClassDTO model)
+        public ActionResult<bool> AddGra(GradeDTO model)
         {
-            var check = _ClassRespo.Insert(model);
-            _ClassRespo.Save();
+            var check = _GraRespo.Insert(model);
+            _GraRespo.Save();
             return check;
 
         }
 
         //PUT
         [HttpPut]
-        public ActionResult<bool> UpdateAdmin(ClassDTO model)
+        public ActionResult<bool> UpdateGra(GradeDTO model)
         {
-            var check = _ClassRespo.Update(model);
-            _ClassRespo.Save();
+            var check = _GraRespo.Update(model);
+            _GraRespo.Save();
             return check;
 
         }
 
         //DELETE
         [HttpDelete("{id}")]
-        public ActionResult<bool> DeleteAdmin(string id)
+        public ActionResult<bool> DeleteGra(int id)
         {
-            var check = _ClassRespo.Delete(id);
+            var check = _GraRespo.Delete(id);
 
-            _ClassRespo.Save();
+            _GraRespo.Save();
             return check;
 
         }

@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,56 +16,55 @@ namespace E_Learning.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ClassController : ControllerBase
+    public class PositionController : ControllerBase
     {
-        private IEClassRespository _ClassRespo;
+        private IEPositionRespository _PosRespo;
         private IMapper admap;
-
-        public ClassController(IEClassRespository classrespo, IMapper mapper)
+        public PositionController(IEPositionRespository posrespo, IMapper mapper)
         {
             admap = mapper;
-            _ClassRespo = classrespo;
+            _PosRespo = posrespo;
         }
 
         //GET
         [HttpGet]
-        public async Task<ActionResult<List<ClassDTO>>> getClassALL()
+        public async Task<ActionResult<List<PositionDTO>>> getPos()
         {
-            var model = _ClassRespo.GetAll();
+            var model = _PosRespo.GetAll();
             if (model == null)
             {
-                return new List<ClassDTO>();
+                return new List<PositionDTO>();
             }
             return model.ToList();
         }
 
         //POST
         [HttpPost]
-        public ActionResult<bool> AddClass(ClassDTO model)
+        public ActionResult<bool> AddPos(PositionDTO model)
         {
-            var check = _ClassRespo.Insert(model);
-            _ClassRespo.Save();
+            var check = _PosRespo.Insert(model);
+            _PosRespo.Save();
             return check;
 
         }
 
         //PUT
         [HttpPut]
-        public ActionResult<bool> UpdateAdmin(ClassDTO model)
+        public ActionResult<bool> UpdatePos(PositionDTO model)
         {
-            var check = _ClassRespo.Update(model);
-            _ClassRespo.Save();
+            var check = _PosRespo.Update(model);
+            _PosRespo.Save();
             return check;
 
         }
 
         //DELETE
         [HttpDelete("{id}")]
-        public ActionResult<bool> DeleteAdmin(string id)
+        public ActionResult<bool> DeleteGra(int id)
         {
-            var check = _ClassRespo.Delete(id);
+            var check = _PosRespo.Delete(id);
 
-            _ClassRespo.Save();
+            _PosRespo.Save();
             return check;
 
         }

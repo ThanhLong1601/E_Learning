@@ -17,56 +17,55 @@ namespace E_Learning.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ClassController : ControllerBase
+    public class AdminAccController : ControllerBase
     {
-        private IEClassRespository _ClassRespo;
+        private IEAdminAccRespository _AdaccRespo;
         private IMapper admap;
 
-        public ClassController(IEClassRespository classrespo, IMapper mapper)
+        public AdminAccController(IEAdminAccRespository adaccrespo, IMapper mapper)
         {
             admap = mapper;
-            _ClassRespo = classrespo;
+            _AdaccRespo = adaccrespo;
         }
-
         //GET
         [HttpGet]
-        public async Task<ActionResult<List<ClassDTO>>> getClassALL()
+        public async Task<ActionResult<List<AdminAccountDTO>>> getAdminAcc()
         {
-            var model = _ClassRespo.GetAll();
+            var model = _AdaccRespo.GetAll();
             if (model == null)
             {
-                return new List<ClassDTO>();
+                return new List<AdminAccountDTO>();
             }
             return model.ToList();
         }
 
         //POST
         [HttpPost]
-        public ActionResult<bool> AddClass(ClassDTO model)
+        public ActionResult<bool> AddAdmin(AdminAccountDTO model)
         {
-            var check = _ClassRespo.Insert(model);
-            _ClassRespo.Save();
+            var check = _AdaccRespo.Insert(model);
+            _AdaccRespo.Save();
             return check;
 
         }
 
         //PUT
         [HttpPut]
-        public ActionResult<bool> UpdateAdmin(ClassDTO model)
+        public ActionResult<bool> UpdateAdmin(AdminAccountDTO model)
         {
-            var check = _ClassRespo.Update(model);
-            _ClassRespo.Save();
+            var check = _AdaccRespo.Update(model);
+            _AdaccRespo.Save();
             return check;
 
         }
 
         //DELETE
-        [HttpDelete("{id}")]
-        public ActionResult<bool> DeleteAdmin(string id)
+        [HttpDelete("{username}")]
+        public ActionResult<bool> DeleteAdmin(string username)
         {
-            var check = _ClassRespo.Delete(id);
+            var check = _AdaccRespo.Delete(username);
 
-            _ClassRespo.Save();
+            _AdaccRespo.Save();
             return check;
 
         }

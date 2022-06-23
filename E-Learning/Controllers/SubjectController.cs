@@ -16,58 +16,57 @@ namespace E_Learning.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class StudentController : ControllerBase
+    public class SubjectController : ControllerBase
     {
-        private IEStudentRespository _StuRespo;
-        private IMapper stumap;
-        public StudentController(IEStudentRespository sturespo, IMapper mapper)
-        {
-            stumap = mapper;
-            _StuRespo = sturespo;
+        private IESubjectRespository _subject;
+        private IMapper map;
 
+        public SubjectController(IESubjectRespository subject, IMapper mapper)
+        {
+            map = mapper;
+            _subject = subject;
         }
 
         //GET
         [HttpGet]
-        public async Task<ActionResult<List<StudentDTO>>> getStu()
+        public async Task<ActionResult<List<SubjectDTO>>> getsub()
         {
-            var model = _StuRespo.GetAll();
+            var model = _subject.GetAll();
             if (model == null)
             {
-                return new List<StudentDTO>();
+                return new List<SubjectDTO>();
             }
             return model.ToList();
         }
 
         //POST
         [HttpPost]
-        public ActionResult<bool> AddStu(StudentDTO model)
+        public ActionResult<bool> AddSub(SubjectDTO model)
         {
-            var check = _StuRespo.Insert(model);
-            _StuRespo.Save();
+            var check = _subject.Insert(model);
+            _subject.Save();
             return check;
 
         }
 
         //PUT
         [HttpPut]
-        public ActionResult<bool> UpdateStu(StudentDTO model)
+        public ActionResult<bool> UpdateTest(SubjectDTO model)
         {
-            var check = _StuRespo.Update(model);
-            _StuRespo.Save();
+            var check = _subject.Update(model);
+            _subject.Save();
             return check;
 
         }
 
         //DELETE
         [HttpDelete("{id}")]
-        public ActionResult<bool> DeleteAdmin(string id)
+        public ActionResult<bool> DeleteTest(int id)
         {
-            var check = _StuRespo.Delete(id);
+            var check = _subject.Delete(id);
 
-            _StuRespo.Save();
+            _subject.Save();
             return check;
-
         }
     }
 }

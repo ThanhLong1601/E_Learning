@@ -16,56 +16,56 @@ namespace E_Learning.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class StudentController : ControllerBase
+    public class StudentAccController : ControllerBase
     {
-        private IEStudentRespository _StuRespo;
+        private IEStudentAccRespository _StuaccRespo;
         private IMapper stumap;
-        public StudentController(IEStudentRespository sturespo, IMapper mapper)
+
+        public StudentAccController(IEStudentAccRespository stuaccrespo, IMapper mapper)
         {
             stumap = mapper;
-            _StuRespo = sturespo;
-
+            _StuaccRespo = stuaccrespo;
         }
 
         //GET
         [HttpGet]
-        public async Task<ActionResult<List<StudentDTO>>> getStu()
+        public async Task<ActionResult<List<StudentAccountDTO>>> getStuAcc()
         {
-            var model = _StuRespo.GetAll();
+            var model = _StuaccRespo.GetAll();
             if (model == null)
             {
-                return new List<StudentDTO>();
+                return new List<StudentAccountDTO>();
             }
             return model.ToList();
         }
 
         //POST
         [HttpPost]
-        public ActionResult<bool> AddStu(StudentDTO model)
+        public ActionResult<bool> AddAdmin(StudentAccountDTO model)
         {
-            var check = _StuRespo.Insert(model);
-            _StuRespo.Save();
+            var check = _StuaccRespo.Insert(model);
+            _StuaccRespo.Save();
             return check;
 
         }
 
         //PUT
         [HttpPut]
-        public ActionResult<bool> UpdateStu(StudentDTO model)
+        public ActionResult<bool> UpdateAdmin(StudentAccountDTO model)
         {
-            var check = _StuRespo.Update(model);
-            _StuRespo.Save();
+            var check = _StuaccRespo.Update(model);
+            _StuaccRespo.Save();
             return check;
 
         }
 
         //DELETE
-        [HttpDelete("{id}")]
-        public ActionResult<bool> DeleteAdmin(string id)
+        [HttpDelete("{username}")]
+        public ActionResult<bool> DeleteAdmin(string username)
         {
-            var check = _StuRespo.Delete(id);
+            var check = _StuaccRespo.Delete(username);
 
-            _StuRespo.Save();
+            _StuaccRespo.Save();
             return check;
 
         }

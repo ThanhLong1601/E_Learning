@@ -17,56 +17,58 @@ namespace E_Learning.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ClassController : ControllerBase
+    public class ClassCourseController : ControllerBase
     {
-        private IEClassRespository _ClassRespo;
-        private IMapper admap;
+        private IEClassCourseRespository _CCRespo;
+        private IMapper ccmap;
 
-        public ClassController(IEClassRespository classrespo, IMapper mapper)
+        public ClassCourseController(IEClassCourseRespository ccrespo, IMapper mapper)
         {
-            admap = mapper;
-            _ClassRespo = classrespo;
+            ccmap = mapper;
+            _CCRespo = ccrespo;
         }
+
 
         //GET
         [HttpGet]
-        public async Task<ActionResult<List<ClassDTO>>> getClassALL()
+        public async Task<ActionResult<List<ClassCourseDTO>>> getAllCourse()
         {
-            var model = _ClassRespo.GetAll();
+            var model = _CCRespo.GetAll();
             if (model == null)
             {
-                return new List<ClassDTO>();
+                return new List<ClassCourseDTO>();
             }
             return model.ToList();
         }
 
         //POST
         [HttpPost]
-        public ActionResult<bool> AddClass(ClassDTO model)
+        public ActionResult<bool> AddCourse(ClassCourseDTO model)
         {
-            var check = _ClassRespo.Insert(model);
-            _ClassRespo.Save();
+            var check = _CCRespo.Insert(model);
+            _CCRespo.Save();
             return check;
 
         }
 
         //PUT
         [HttpPut]
-        public ActionResult<bool> UpdateAdmin(ClassDTO model)
+        public ActionResult<bool> UpdateCourse(ClassCourseDTO model)
         {
-            var check = _ClassRespo.Update(model);
-            _ClassRespo.Save();
+            var check = _CCRespo.Update(model);
+            _CCRespo.Save();
             return check;
 
         }
 
+
         //DELETE
         [HttpDelete("{id}")]
-        public ActionResult<bool> DeleteAdmin(string id)
+        public ActionResult<bool> DeleteCourse(int id)
         {
-            var check = _ClassRespo.Delete(id);
+            var check = _CCRespo.Delete(id);
 
-            _ClassRespo.Save();
+            _CCRespo.Save();
             return check;
 
         }

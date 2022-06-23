@@ -7,7 +7,6 @@ namespace E_Learning.Entity
 {
     public class Student_Test
     {
-
         public Student_Test()
         {
             Learning_Results = new HashSet<Learning_Result>();

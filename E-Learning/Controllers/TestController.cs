@@ -16,58 +16,55 @@ namespace E_Learning.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AdminController : ControllerBase
+    public class TestController : ControllerBase
     {
-        private IEAdminRespository _AdRespo;
-        private IMapper admap;
-        public AdminController(IEAdminRespository adrespo, IMapper mapper)
-        {
-            admap = mapper;
-            _AdRespo = adrespo;
+        private IETestRespository _test;
+        private IMapper testmap;
 
+        public TestController(IETestRespository test, IMapper mapper)
+        {
+            testmap = mapper;
+            _test = test;
         }
 
         //GET
         [HttpGet]
-        public async Task<ActionResult<List<AdminDTO>>> getAdmin()
+        public async Task<ActionResult<List<TestDTO>>> gettestcate()
         {
-            var model = _AdRespo.GetAll();
+            var model = _test.GetAll();
             if (model == null)
             {
-                return new List<AdminDTO>();
+                return new List<TestDTO>();
             }
             return model.ToList();
-        }
+        } 
 
         //POST
         [HttpPost]
-        public ActionResult<bool> AddAdmin(AdminDTO model)
+        public ActionResult<bool> AddTest(TestDTO model)
         {
-            var check = _AdRespo.Insert(model);
-            _AdRespo.Save();
+            var check = _test.Insert(model);
+            _test.Save();
             return check;
-
         }
 
         //PUT
         [HttpPut]
-        public ActionResult<bool> UpdateAdmin(AdminDTO model)
+        public ActionResult<bool> UpdateTest(TestDTO model)
         {
-            var check = _AdRespo.Update(model);
-            _AdRespo.Save();
+            var check = _test.Update(model);
+            _test.Save();
             return check;
-
         }
 
         //DELETE
         [HttpDelete("{id}")]
-        public ActionResult<bool> DeleteAdmin(string id)
+        public ActionResult<bool> DeleteTest(int id)
         {
-            var check = _AdRespo.Delete(id);
+            var check = _test.Delete(id);
 
-            _AdRespo.Save();
+            _test.Save();
             return check;
-
         }
     }
 }

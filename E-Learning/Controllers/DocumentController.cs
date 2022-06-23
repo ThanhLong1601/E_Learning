@@ -16,56 +16,58 @@ namespace E_Learning.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class StudentController : ControllerBase
+    public class DocumentController : ControllerBase
     {
-        private IEStudentRespository _StuRespo;
-        private IMapper stumap;
-        public StudentController(IEStudentRespository sturespo, IMapper mapper)
+        private IEDocumentRespository _DocRespo;
+        private IMapper docmap;
+        public DocumentController(IEDocumentRespository docrespo, IMapper mapper)
         {
-            stumap = mapper;
-            _StuRespo = sturespo;
-
+            docmap = mapper;
+            _DocRespo = docrespo;
         }
 
         //GET
         [HttpGet]
-        public async Task<ActionResult<List<StudentDTO>>> getStu()
+        public async Task<ActionResult<List<DocumentDTO>>> getAllCourse()
         {
-            var model = _StuRespo.GetAll();
+            var model = _DocRespo.GetAll();
             if (model == null)
             {
-                return new List<StudentDTO>();
+                return new List<DocumentDTO>();
             }
             return model.ToList();
         }
 
         //POST
         [HttpPost]
-        public ActionResult<bool> AddStu(StudentDTO model)
+        public ActionResult<bool> AddDoc(DocumentDTO model)
         {
-            var check = _StuRespo.Insert(model);
-            _StuRespo.Save();
+            var check = _DocRespo.Insert(model);
+            _DocRespo.Save();
             return check;
 
         }
+
 
         //PUT
         [HttpPut]
-        public ActionResult<bool> UpdateStu(StudentDTO model)
+        public ActionResult<bool> UpdateDoc(DocumentDTO model)
         {
-            var check = _StuRespo.Update(model);
-            _StuRespo.Save();
+            var check = _DocRespo.Update(model);
+            _DocRespo.Save();
             return check;
 
         }
 
+
+
         //DELETE
         [HttpDelete("{id}")]
-        public ActionResult<bool> DeleteAdmin(string id)
+        public ActionResult<bool> DeleteDoc(int id)
         {
-            var check = _StuRespo.Delete(id);
+            var check = _DocRespo.Delete(id);
 
-            _StuRespo.Save();
+            _DocRespo.Save();
             return check;
 
         }
